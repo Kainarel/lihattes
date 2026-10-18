@@ -693,8 +693,23 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin: 0 auto 24px;
+}
+
+#screen-journey .screen-nav-bar {
   max-width: 860px;
-  margin-bottom: 24px;
+}
+
+#screen-moment .screen-nav-bar {
+  max-width: 860px;
+}
+
+#screen-playlist .screen-nav-bar {
+  max-width: 520px;
+}
+
+#screen-gift .screen-nav-bar {
+  max-width: 480px;
 }
 
 .btn-back {
@@ -765,7 +780,7 @@ body {
   100% { transform: translateY(-16px) rotate(8deg); }
 }
 
-/* Marquee Track */
+/* Marquee Track: Always continuously loops without stopping on hover */
 .marquee-container {
   width: 100%;
   overflow: hidden;
@@ -778,10 +793,7 @@ body {
   width: max-content;
   animation: marqueeLoop 30s linear infinite;
   padding: 10px 0;
-}
-
-.marquee-track:hover {
-  animation-play-state: paused;
+  will-change: transform;
 }
 
 @keyframes marqueeLoop {
@@ -789,7 +801,7 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-/* Polaroid Card Style */
+/* Polaroid Card Style: Highlights smoothly on hover while stream keeps scrolling */
 .marquee-polaroid-item {
   width: 250px;
   flex-shrink: 0;
@@ -811,9 +823,9 @@ body {
 }
 
 .marquee-polaroid-item:hover {
-  transform: scale(1.05) rotate(0deg) !important;
-  z-index: 20;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.85);
+  transform: scale(1.08) rotate(0deg) !important;
+  z-index: 25;
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.9);
 }
 
 .polaroid-frame-box {
