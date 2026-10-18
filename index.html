@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Happy Birthday Bestie ✦</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Backdrop -->
+  <div class="ambient-glow" aria-hidden="true"></div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Floating Audio Button with Equalizer Bars -->
+  <button id="audioToggle" class="audio-toggle-btn" aria-label="Putar musik latar">
+    <span class="eq-bar"></span>
+    <span class="eq-bar"></span>
+    <span class="eq-bar"></span>
+  </button>
+
+  <!-- Main Container Mobile First -->
+  <main class="app-container">
+
+    <!-- ====================================================================
+         SCREEN 1: INTRO / ENVELOPE
+         ==================================================================== -->
+    <section id="screen-intro" class="view-screen active">
+      <div class="badge-pill">A Special Delivery For You ✦</div>
+      
+      <div class="envelope-wrapper" id="mainEnvelope" role="button" aria-label="Buka amplop ucapan ulang tahun" tabindex="0">
+        <div class="envelope">
+          <div class="envelope-flap"></div>
+          <div class="wax-seal">✦</div>
+        </div>
+      </div>
+
+      <h1 class="heading-display" style="font-size: 1.6rem; margin-bottom: 6px;">
+        Ada Kado Spesial Buatmu
+      </h1>
+      <p class="text-pretty" style="color: var(--text-muted); font-size: 0.9rem;">
+        Khusus untuk <span class="cfg-nickname" style="color: var(--accent-gold-soft); font-weight: 700;">Bestie</span> di hari ulang tahunnya
+      </p>
+
+      <div class="tap-indicator">
+        <span>Ketuk amplop untuk membuka</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6"/>
+        </svg>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SCREEN 2: CAKE & BLOW CANDLE
+         ==================================================================== -->
+    <section id="screen-cake" class="view-screen">
+      <div class="badge-pill">Make a Wish ✦</div>
+
+      <h2 class="heading-display" style="font-size: 1.55rem; margin-top: 14px;">
+        Tiup Lilinnya Yuk
+      </h2>
+      <p id="candleHint" class="text-pretty" style="color: var(--text-muted); font-size: 0.875rem; margin-top: 6px; padding: 0 10px;">
+        Tutup matamu sejenak, buat permohonan tulusmu, lalu <strong>ketuk lilinnya</strong>.
+      </p>
+
+      <!-- Cake Stage -->
+      <div class="cake-stage" id="cakeStage" role="button" aria-label="Tiup lilin kue ulang tahun">
+        <!-- Candle -->
+        <div class="candle" id="mainCandle">
+          <div class="candle-flame"></div>
+          <div class="smoke-puff">💨</div>
+        </div>
+
+        <!-- Cake Layers -->
+        <div class="cake-tier-top"></div>
+        <div class="cake-tier-bottom"></div>
+        <div class="cake-plate"></div>
+      </div>
+
+      <div id="cakeAfterAction" style="display: none; width: 100%;">
+        <button id="btnGoToHub" class="action-btn-primary" style="width: 100%;">
+          <span>Buka Ruang Kejutanmu</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14m-7-7 7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SCREEN 3: MAIN HUB / SURPRISE SELECTION
+         ==================================================================== -->
+    <section id="screen-hub" class="view-screen">
+      <div class="hub-header">
+        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" 
+             alt="Bestie Avatar" 
+             class="hub-avatar">
+        <div class="badge-pill" style="margin-bottom: 8px;">Happy Birthday ✦</div>
+        <h2 class="heading-display" style="font-size: 1.6rem;">
+          <span class="cfg-recipient">Clarissa Putri</span>
+        </h2>
+        <p class="text-pretty" style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">
+          Pilih salah satu ruang kenangan di bawah:
+        </p>
+      </div>
+
+      <!-- 4 Surprise Tiles -->
+      <div class="surprise-grid">
+        <!-- Tile 1: Journey -->
+        <button class="surprise-card-btn" data-target-view="journey" aria-label="Buka galeri foto kenangan">
+          <div class="surprise-icon-circle">📸</div>
+          <div class="surprise-card-title">Journey</div>
+          <div class="surprise-card-desc">Galeri Polaroid & Cerita</div>
+        </button>
+
+        <!-- Tile 2: Moment -->
+        <button class="surprise-card-btn" data-target-view="moment" aria-label="Buka surat ucapan spesial">
+          <div class="surprise-icon-circle">📜</div>
+          <div class="surprise-card-title">Moment</div>
+          <div class="surprise-card-desc">Surat Tulus Dari Hati</div>
+        </button>
+
+        <!-- Tile 3: Playlist -->
+        <button class="surprise-card-btn" data-target-view="playlist" aria-label="Putar lagu persahabatan">
+          <div class="surprise-icon-circle">🎵</div>
+          <div class="surprise-card-title">Playlist</div>
+          <div class="surprise-card-desc">Melodi Persahabatan</div>
+        </button>
+
+        <!-- Tile 4: Gift -->
+        <button class="surprise-card-btn" data-target-view="gift" aria-label="Buka kupon gosok kado">
+          <div class="surprise-icon-circle">🎟️</div>
+          <div class="surprise-card-title">Gift</div>
+          <div class="surprise-card-desc">Kupon Gosok Traktiran</div>
+        </button>
+      </div>
+
+      <div style="text-align: center; margin-top: 10px;">
+        <p style="font-size: 0.75rem; color: var(--text-faint);">
+          Dibuat dengan penuh ketulusan oleh <span class="cfg-sender">Sahabatmu</span> ✦
+        </p>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SCREEN 4: DETAIL - JOURNEY (POLAROID)
+         ==================================================================== -->
+    <section id="screen-journey" class="view-screen">
+      <div class="screen-nav-bar">
+        <button class="btn-back" aria-label="Kembali ke menu utama">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span>Kembali</span>
+        </button>
+        <span style="font-size: 0.8125rem; font-weight: 600; color: var(--accent-gold);">Bestie Memories</span>
+      </div>
+
+      <h2 class="heading-display" style="font-size: 1.45rem; margin-bottom: 4px;">Memory Lane 📸</h2>
+      <p class="text-pretty" style="color: var(--text-muted); font-size: 0.825rem; margin-bottom: 18px;">
+        Ketuk pada foto polaroid untuk membaca cerita di baliknya.
+      </p>
+
+      <div id="polaroidContainer" class="polaroid-stack">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SCREEN 5: DETAIL - MOMENT (LETTER)
+         ==================================================================== -->
+    <section id="screen-moment" class="view-screen">
+      <div class="screen-nav-bar">
+        <button class="btn-back" aria-label="Kembali ke menu utama">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span>Kembali</span>
+        </button>
+        <span style="font-size: 0.8125rem; font-weight: 600; color: var(--accent-gold);">Special Letter</span>
+      </div>
+
+      <div class="letter-paper">
+        <div class="letter-header">Dear Clarissa,</div>
+        <div class="letter-body" id="letterBodyContent">
+          <!-- Typewriter content appears here -->
+        </div>
+        <div class="letter-footer">
+          <div>Warmest hugs & friendship,</div>
+          <div style="font-weight: 700; margin-top: 4px;" class="cfg-sender">Sahabat Sejatimu ✦</div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SCREEN 6: DETAIL - PLAYLIST (VINYL RECORD)
+         ==================================================================== -->
+    <section id="screen-playlist" class="view-screen">
+      <div class="screen-nav-bar">
+        <button class="btn-back" aria-label="Kembali ke menu utama">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span>Kembali</span>
+        </button>
+        <span style="font-size: 0.8125rem; font-weight: 600; color: var(--accent-gold);">Friendship Song</span>
+      </div>
+
+      <div class="playlist-card">
+        <div class="vinyl-disk" id="vinylDisk">
+          <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80" 
+               alt="Vinyl Label" 
+               class="vinyl-center-art">
+        </div>
+
+        <h3 id="songTitle" class="heading-display" style="font-size: 1.35rem; margin-bottom: 4px;">Count on Me</h3>
+        <p id="artistName" style="color: var(--accent-sky-soft); font-size: 0.9rem; font-weight: 600;">Acoustic Music Box</p>
+
+        <button id="btnPlaylistPlay" class="btn-playlist-play" aria-label="Putar atau jeda lagu">
+          <span>⏸ Jeda Musik</span>
+        </button>
+
+        <div class="lyrics-container" id="lyricsBox">
+          <!-- Lyrics injected by JS -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ====================================================================
+         SCREEN 7: DETAIL - GIFT (PERFECTLY CENTERED SCRATCH CARD)
+         ==================================================================== -->
+    <section id="screen-gift" class="view-screen">
+      <div class="screen-nav-bar">
+        <button class="btn-back" aria-label="Kembali ke menu utama">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="m15 18-6-6 6-6"/>
+          </svg>
+          <span>Kembali</span>
+        </button>
+        <span style="font-size: 0.8125rem; font-weight: 600; color: var(--accent-gold);">Claim Your Gift</span>
+      </div>
+
+      <div class="scratch-box-wrapper">
+        <h3 class="heading-display" style="font-size: 1.35rem; margin-bottom: 6px;">Special Treat Voucher 🎟️</h3>
+        <p class="text-pretty" style="font-size: 0.825rem; color: var(--text-muted); margin-bottom: 12px;">
+          Gosok area emas di bawah dengan jarimu untuk membuka hadiah traktiran!
+        </p>
+
+        <!-- Perfectly Centered Scratch Container -->
+        <div class="scratch-canvas-container">
+          <div class="scratch-reward">
+            <div class="reward-badge">VOUCHER TRAKTIRAN</div>
+            <div id="rewardTitle" class="reward-title">SELAMAT ULANG TAHUN!</div>
+            <div id="rewardPrize" class="reward-detail">1x Traktir Kopi & Kuliner Bebas Pilih</div>
+            <div id="rewardPerk" class="reward-detail">+ Bebas Curhat 24 Jam Nonstop!</div>
+            <div id="voucherCodeText" class="voucher-code-badge">BESTIE-SPECIAL-2026</div>
+          </div>
+          <canvas id="scratchCanvas" class="scratch-canvas"></canvas>
+        </div>
+
+        <p style="font-size: 0.75rem; color: var(--text-faint); margin-top: 10px;">
+          *Screenshot kartu ini dan kirim ke WhatsApp untuk klaim traktiranmu ✦
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Load Config & Core Logic -->
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
