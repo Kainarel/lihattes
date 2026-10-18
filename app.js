@@ -1,10 +1,12 @@
 /**
  * =========================================================================
- * 🚀 APP.JS - KADO VIRTUAL BESTIE (MIDNIGHT SAPPHIRE EDITION)
- * - Music plays EXCLUSIVELY upon entering the Playlist page!
- * - Automatic pause when navigating back from Playlist
- * - Built-in Pure Web Audio Music Box Synthesizer
- * - Centered Scratch Card with Golden Shimmer
+ * 🚀 APP.JS - KADO VIRTUAL BESTIE (STARLIGHT & INFINITE MARQUEE EDITION)
+ * Features:
+ * - Glistening White Twinkling Starfield Canvas Engine
+ * - Infinite Looping Horizontal Polaroid Carousel (Journey)
+ * - Decorated Letter Screen with Typewriter Effect (Moment)
+ * - Built-in Music Box Synthesizer (Starts ONLY on Playlist Screen)
+ * - Perfectly Centered Golden Scratch Card (Gift)
  * =========================================================================
  */
 
@@ -29,6 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const audioToggle = document.getElementById('audioToggle');
   const btnPlaylistPlay = document.getElementById('btnPlaylistPlay');
   const confettiCanvas = document.getElementById('confetti-canvas');
+  const starfieldCanvas = document.getElementById('starfield-canvas');
+
+  // Initialize Twinkling Starfield Background Engine
+  initStarfield(starfieldCanvas);
 
   // Setup Dynamic Content
   populateConfigData(config);
@@ -46,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (envelopeEl.classList.contains('opened')) return;
 
       envelopeEl.classList.add('opened');
-      confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 50);
+      confetti.burst(window.innerWidth / 2, window.innerHeight / 2, 55);
 
       setTimeout(() => {
         showScreen('cake');
@@ -81,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (btnGoToHub) {
     btnGoToHub.addEventListener('click', () => {
       showScreen('hub');
-      confetti.burst(window.innerWidth / 2, 100, 30);
+      confetti.burst(window.innerWidth / 2, 120, 35);
     });
   }
 
@@ -188,30 +194,38 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.cfg-sender').forEach(el => el.textContent = cfg.senderName);
     document.querySelectorAll('.cfg-date').forEach(el => el.textContent = cfg.birthdayDate);
 
-    // Journey Polaroids
-    const polaroidContainer = document.getElementById('polaroidContainer');
-    if (polaroidContainer && cfg.journey.photos) {
-      polaroidContainer.innerHTML = '';
-      cfg.journey.photos.forEach(photo => {
-        const card = document.createElement('div');
-        card.className = 'polaroid-card';
-        card.innerHTML = `
-          <div class="polaroid-inner">
-            <div class="polaroid-front">
-              <div class="polaroid-photo-frame">
-                <img src="${photo.url}" alt="${photo.caption}" loading="lazy">
-              </div>
-              <div class="polaroid-caption">${photo.caption}</div>
-              <div class="polaroid-tap-hint">Tap untuk balik kartu ↺</div>
-            </div>
-            <div class="polaroid-back">
-              <div class="polaroid-memory-text">"${photo.memory}"</div>
-              <div class="polaroid-tap-hint">Tap untuk balik lagi ↺</div>
-            </div>
+    // Journey: Setup Infinite Looping Marquee Track
+    const marqueeTrack = document.getElementById('marqueeTrack');
+    const banner = document.getElementById('memoryInspectBanner');
+    const inspectTitle = document.getElementById('inspectPhotoTitle');
+    const inspectText = document.getElementById('inspectPhotoText');
+
+    if (marqueeTrack && cfg.journey.photos) {
+      marqueeTrack.innerHTML = '';
+      
+      // Duplicate photos array twice so the loop is continuous and seamless
+      const loopPhotos = [...cfg.journey.photos, ...cfg.journey.photos];
+      
+      loopPhotos.forEach((photo, idx) => {
+        const item = document.createElement('div');
+        item.className = 'marquee-polaroid-item';
+        item.innerHTML = `
+          <div class="polaroid-frame-box">
+            <img src="${photo.url}" alt="${photo.caption}" loading="lazy">
           </div>
+          <div class="polaroid-item-caption">${photo.caption}</div>
+          <div class="polaroid-click-hint">Ketuk untuk baca memori ✨</div>
         `;
-        card.addEventListener('click', () => card.classList.toggle('flipped'));
-        polaroidContainer.appendChild(card);
+
+        item.addEventListener('click', () => {
+          inspectTitle.textContent = photo.caption;
+          inspectText.textContent = `"${photo.memory}"`;
+          banner.style.display = 'block';
+          banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          confetti.burst(window.innerWidth / 2, window.innerHeight * 0.7, 25);
+        });
+
+        marqueeTrack.appendChild(item);
       });
     }
 
@@ -278,8 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
     const container = canvas.parentElement;
     
-    const width = container.clientWidth || 320;
-    const height = container.clientHeight || 170;
+    const width = container.clientWidth || 330;
+    const height = container.clientHeight || 175;
     const dpr = window.devicePixelRatio || 1;
 
     canvas.width = width * dpr;
@@ -288,9 +302,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Antique Gold Metallic Texture
     const grad = ctx.createLinearGradient(0, 0, width, height);
-    grad.addColorStop(0, '#d4af37');
-    grad.addColorStop(0.5, '#f5e6b8');
-    grad.addColorStop(1, '#aa8230');
+    grad.addColorStop(0, '#f5c760');
+    grad.addColorStop(0.5, '#fff0c2');
+    grad.addColorStop(1, '#b38526');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, width, height);
 
@@ -329,11 +343,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fill();
 
       scratchedPixels++;
-      if (scratchedPixels > 40 && !hasCleared) {
+      if (scratchedPixels > 38 && !hasCleared) {
         hasCleared = true;
         setTimeout(() => {
           ctx.clearRect(0, 0, width, height);
-          confetti.burst(window.innerWidth / 2, window.innerHeight * 0.5, 70);
+          confetti.burst(window.innerWidth / 2, window.innerHeight * 0.5, 75);
         }, 300);
       }
     }
@@ -348,6 +362,78 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
     window.addEventListener('touchend', () => isScratching = false);
     canvas.addEventListener('touchmove', scratch, { passive: true });
+  }
+
+  // =========================================================================
+  // ✨ TWINKLING STARFIELD ENGINE (GLISTENING NIGHT SKY)
+  // =========================================================================
+  function initStarfield(canvas) {
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    let width = 0;
+    let height = 0;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      createStars();
+    }
+
+    function createStars() {
+      stars = [];
+      const count = Math.floor((width * height) / 7500); // Dense, natural star count
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 1.5 + 0.4,
+          baseAlpha: Math.random() * 0.4 + 0.3,
+          twinkleSpeed: Math.random() * 0.03 + 0.01,
+          phase: Math.random() * Math.PI * 2,
+          isCrossStar: Math.random() < 0.12 // 12% glistening cross stars
+        });
+      }
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    function render() {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < stars.length; i++) {
+        const star = stars[i];
+        star.phase += star.twinkleSpeed;
+        const alpha = star.baseAlpha + Math.sin(star.phase) * 0.35;
+        const currentAlpha = Math.max(0.1, Math.min(1, alpha));
+
+        ctx.fillStyle = `rgba(255, 255, 255, ${currentAlpha})`;
+
+        if (star.isCrossStar && currentAlpha > 0.6) {
+          // Draw subtle 4-point glistening star sparkle
+          const size = star.radius * 3.5;
+          ctx.beginPath();
+          ctx.moveTo(star.x, star.y - size);
+          ctx.lineTo(star.x, star.y + size);
+          ctx.moveTo(star.x - size, star.y);
+          ctx.lineTo(star.x + size, star.y);
+          ctx.strokeStyle = `rgba(245, 230, 180, ${currentAlpha * 0.85})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(render);
+    }
+
+    render();
   }
 
   // =========================================================================
@@ -469,12 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
 
     const colors = [
-      '#e0c27b', // Antique Gold
-      '#f5e6b8', // Champagne Soft
-      '#a68235', // Rich Ochre
-      '#ffffff', // Pure White Star
-      '#818cf8', // Soft Starlight Blue
-      '#d4af37'  // Deep Gold
+      '#f5c760', '#fff0c2', '#b38526', '#ffffff', '#818cf8', '#e0e7ff'
     ];
 
     function burst(originX, originY, count = 50) {
